@@ -1,0 +1,14 @@
+# Linux Notes
+
+Topics Covered
+
+- Command Chaining
+- Input & Output Redirection
+- Pipes
+- Processes
+- Users
+- Permissions
+- tmux (Terminal Multiplexing)
+- PATH & Path Hijacking
+
+These notes are based on my hands-on Linux practice while learning cybersecurity and system administration.
