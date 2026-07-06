@@ -1,0 +1,7 @@
+baiscs 
+done wiht binary hex and base64 encoding and decodings using terminal
+
+echo "your binary/string" | xxd -p{plain text}
+printf '\x48\x65\x6c\x6c\x6f'                                         #few examples to remember the trmnl cmdln
+echo 'iAb/uzx0uJQ=' | base64 -d | xxd
+printf '\xef\xd3\x67\xb9\x3a\x97\xf9\xc5' | base64 -w0 | xxd -p -c999
