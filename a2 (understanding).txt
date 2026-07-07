@@ -13,7 +13,8 @@ mov rsi, 0              #second argument for open func
 syscall                 
 
 mov rdi, rax            #setting the file descriptor received from kernel(3)(into rdi as after rax its first register in order)   
-mov rax, 0              #syscall setting in rax (zero for read)                                              #reading {read(fd,"flag",128)} 
+mov rax, 0              #syscall setting in rax (zero for read)                                              
+ #reading {read(fd,"flag",128)} 
 mov rsi, rsp            #setting second argument for the string we wrote earlier
 mov rdx, 128            #setting third argument for the max lenght
 syscall
