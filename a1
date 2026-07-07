@@ -19,3 +19,6 @@ syscall
 mov rax, 60                 # exit block
 mov rdi, 42
 syscall
+
+
+# a2 is actually the understanding part move to that
