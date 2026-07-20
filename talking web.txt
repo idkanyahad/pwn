@@ -1,0 +1,147 @@
+### HTTP Commands Cheat Sheet (pwn.college)
+
+**curl** is used to send HTTP requests.
+
+curl http://challenge.localhost` → Send a simple GET request.
+curl -i http://challenge.localhost` → Show response headers and body.
+curl -v http://challenge.localhost` → Show the exact HTTP request and response.
+curl -L http://challenge.localhost` → Automatically follow redirects.
+curl "http://challenge.localhost/authenticate?secret=myppnkay&verify=bgantlbp&token=vqxryhzh"` → Send GET parameters.
+curl -d "hash=trqqjgiv" http://challenge.localhost/gate` → Send POST form data.
+curl -d "solution=ntqsifqa&auth_pass=jeajofjf&password=oflxdvtb" http://challenge.localhost/hack` → Send multiple POST parameters.
+curl -H "Cookie: cookie=abc123" http://challenge.localhost` → Send a custom Cookie header.
+---
+
+
+
+
+**printf | nc** is used to manually create raw HTTP requests.
+
+printf "GET / HTTP/1.1\r\nHost: challenge.localhost:80\r\n\r\n" | nc challenge.localhost 80` → Basic GET request.
+printf "GET /verify?code=kevtdhdk&secure_key=gsktycvh&pin=kxdgtsph HTTP/1.1\r\nHost: challenge.localhost:80\r\n\r\n" | nc challenge.localhost 80` → GET request with URL parameters.
+printf "POST /gateway HTTP/1.1\r\nHost: challenge.localhost:80\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 15\r\n\r\naccess=cjtkpbcn" | nc challenge.localhost 80` → POST request with form data.
+printf "GET / HTTP/1.1\r\nHost: challenge.localhost:80\r\nCookie: cookie=df742be9ba3ff040028b53e8acfb4aff\r\n\r\n" | nc challenge.localhost 80` → GET request with a Cookie header.
+
+
+
+
+**Python requests library** is used to send HTTP requests from Python.
+
+requests.get("http://challenge.localhost/entry")` → Simple GET request.
+requests.get("http://challenge.localhost/gate", params={"unlock":"pwgklefy"})` → GET request with URL parameters.
+requests.post("http://challenge.localhost/entry", data={"pin":"hcdwpugp"})` → POST request with form data.
+
+
+
+
+### HTTP Headers You Used
+
+**Host**
+Example: `Host: challenge.localhost:80`
+Tells the server which website/virtual host you want.
+
+**User-Agent**
+Example: `User-Agent: Firefox`
+Identifies the client making the request.
+
+**Cookie**
+Example: `Cookie: cookie=abc123`
+Sends stored cookie values back to the server.
+
+**Set-Cookie**
+Example: `Set-Cookie: cookie=abc123`
+Server tells the client to store a cookie.
+
+**Content-Type**
+Example: `Content-Type: application/x-www-form-urlencoded`
+Specifies the format of POST data.
+
+**Content-Length**
+Example: `Content-Length: 15`
+Specifies the size of the POST body in bytes.
+
+
+
+### Flask ↔ Client Mapping
+
+request.args.get() → Reads GET parameters (`?key=value`).
+request.form.get() → Reads POST form data.
+request.headers.get() → Reads HTTP headers.
+request.cookies.get() → Reads cookies sent by the client.
+response.set_cookie() → Sends a cookie to the client.
+flask.redirect() → Sends a redirect response (`302` + `Location` header).
+
+
+
+
+**When reading Flask code:**
+
+request.args → Think **GET parameters**.
+request.form → Think **POST parameters**.
+request.headers → Think **HTTP headers**.
+request.cookies → Think **Cookie header**.
+set_cookie() → Server gives you a cookie.
+redirect() → Make another request to the URL in `Location`.
+
+
+
+
+
+**Creating a Simple Flask Server
+
+Create a basic web server that listens for incoming HTTP requests.
+app = Flask(__name__) → Create a Flask application.
+@app.route("/") → Handle requests to the root (/) URL.
+def index(): → Function executed when the route is visited.
+return "Hello" → Send a response back to the client.
+app.run("localhost", 1337) → Start the server on localhost port 1337.
+
+
+
+
+
+fetch() → Send an HTTP request.
+method: "POST" → Use the POST method.
+new URLSearchParams({...}) → Send POST form parameters.
+response.text() → Read the server's response.
+.then() → Handle asynchronous responses.
+window.location = ... → Redirect the browser to another page.
+
+**Reading the Response
+fetch("/flag")
+    .then(response => response.text())
+    .then(data => console.log(data));
+response.text() → Read the response as text (HTML, flag, etc.).
+console.log(data) → Print the response.
+
+
+**POST Form Data
+fetch("/challenge", {
+    method: "POST",
+    body: new URLSearchParams({
+        username: "ahad",
+        password: "1234"
+    })
+});
+
+**Multiple POST Parameters
+fetch("/challenge", {
+    method: "POST",
+    body: new URLSearchParams({
+        hash: "abc",
+        credential: "xyz",
+        secret: "123"
+    })
+});
+
+**Redirect Using Server Response
+fetch("/challenge")
+    .then(response => response.text())
+    .then(flag => {
+        window.location = "/hack?" + flag;
+    });
+
+
+
+
+#NOTE: everyting is added in one go becuse i forgot to document it online as i am also documenting it on my notes
