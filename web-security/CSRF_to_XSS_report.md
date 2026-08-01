@@ -139,10 +139,10 @@ All user input must be sanitized before rendering:
 /def challenge_ephemeral():
 /    msg = flask.request.args.get("msg", "(none)")
 /    return f"""
-/        <html><body>
-/        <h1>You have received an ephemeral message!</h1>
+/        html><body>
+/        h1>You have received an ephemeral message!</h1>
 /        The message: {escape(msg)}
-/        </body></html>
+/        /body></html>
 /    """
 
 2. Implement Content Security Policy (CSP)
@@ -168,10 +168,10 @@ from flask import render_template_string
 /def challenge_ephemeral():
 /    msg = flask.request.args.get("msg", "(none)")
 /    return render_template_string("""
-/        <html><body>
-/        <h1>You have received an ephemeral message!</h1>
+/        html><body>
+/        h1>You have received an ephemeral message!</h1>
 /        The message: {{ msg }}
-/        </body></html>
+/        /body></html>
 /    """, msg=msg)
 
 4. Implement CSRF Tokens
