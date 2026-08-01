@@ -1,3 +1,6 @@
+ONLY FOR LEARNING POURPOSES
+
+
 ___*****Report 2: CSRF to XSS Leading to Flag Exfiltration via Direct Page Fetch*****___
 
 Vulnerability Report: CSRF to Reflected XSS Enabling Server-Side Page Reading
@@ -7,14 +10,14 @@ CWE: CWE-352 (Cross-Site Request Forgery), CWE-79 (Cross-Site Scripting)
 Affected Endpoint: /ephemeral (GET), / (GET)
 Vector Chain: CSRF → Reflected XSS → Same-Origin Page Fetch → Flag Exfiltration
 
-Summary
+___Summary___
 A Cross-Site Request Forgery (CSRF) vulnerability in the /ephemeral endpoint allows an attacker to inject 
 JavaScript via Reflected XSS. Although the session cookie is protected with the HttpOnly flag, the XSS can 
 bypass this by performing a fetch() request to read the home page (/) directly. The response contains the flag, 
 which is then exfiltrated to an attacker-controlled server. This demonstrates that HttpOnly cookies are not sufficient 
 to protect against XSS when the attacker can read the page content directly.
 
-Vulnerability Details
+___Vulnerability Details___
 
 1. CSRF to Reflected XSS (Same as CSRF-4)
 The /ephemeral endpoint reflects the msg parameter without sanitization, allowing XSS injection.
@@ -31,19 +34,18 @@ Once XSS is achieved, the attacker's code runs on the same origin (challenge.loc
 allows unrestricted access to any page on the same domain, as SOP does not block same-origin requests.
 
 
-Vulnerable Code - Home Page:
+***Vulnerable Code - Home Page:***
 
-python
-for post in db.execute("SELECT * FROM posts").fetchall():
-    page += f"""<h2>Author: {post["author"]}</h2>"""
-    if post["author"] == username:
-        page += "<b>YOUR POST:</b> " + post["content"] + "<hr>\n"
-    elif username == "admin":
-        page += "<b>NON-ADMIN POST HIDDEN FOR SAFETY</b>"
-    elif post["published"]:
-        page += post["content"] + "<hr>\n"
-The admin's flag post is displayed in the HTML source, making it accessible via the response text.
-
+/for post in db.execute("SELECT * FROM posts").fetchall():
+/    page += f"""<h2>Author: {post["author"]}</h2>"""
+/    if post["author"] == username:
+/        page += "<b>YOUR POST:</b> " + post["content"] + "<hr>\n"
+/    elif username == "admin":
+/        page += "<b>NON-ADMIN POST HIDDEN FOR SAFETY</b>"
+/    elif post["published"]:
+/        page += post["content"] + "<hr>\n"
+/The admin's flag post is displayed in the HTML source, making it accessible via the response text.
+/
 
 Proof of Concept
 
